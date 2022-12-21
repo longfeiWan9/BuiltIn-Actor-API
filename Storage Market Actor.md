@@ -1,16 +1,18 @@
 # Storage Market Actor
 
-Storage market actor is responsible for managing storage and retrieval deals. The ActorCode for DataCap actor is `hex"0005"` which will be used to call.
+Storage market actor is responsible for managing storage and retrieval deals. 
+
+The ActorCode for storage market actor is `hex"0005"` which will be used to call this actor. You also need to specify method number of which method you want to invoke. Please refer the each method for its method number.
 
 ### AddBalance
 
-```
+```go
 func AddBalance(address Address) EmptyValue {}
 ```
 
-Deposits the received token,  which is received along with this message,  into the balance held in escrow address of the provider or client address.
+Deposit the received FIL token, which is received along with this message,  into the balance held in escrow address of the provider or client address.
 
-`uint`  AddBalanceMethodNum = 822473126;
+`uint`  AddBalanceMethodNum = 822473126.
 
 **Params**:
 
@@ -22,33 +24,33 @@ Deposits the received token,  which is received along with this message,  into t
 
 ### GetBalance
 
-```
-func GetBalance(address Address) GetBalance {}
+```go
+func GetBalance(address Address) GetBalanceReturn {}
 ```
 
-Returns the escrow balance and locked amount for an address.
+Return the escrow balance and locked amount for an address.
 
-`uint` GetBalanceMethodNum = 726108461;
+`uint` GetBalanceMethodNum = 726108461.
 
 **Params**:
 
-+ `bytes` address - the wallet address to add balance.
++ `bytes` address - the wallet address to request balance.
 
 **Results**:
 
 + `struct` GetBalanceReturn
-  + `int256` Balance - the new escrow balance for this address
-  + `int256` Locked - the new escrow locked amount for this address.
+  + `int256` Balance - the escrow balance for this address.
+  + `int256` Locked - the escrow locked amount for this address.
 
 ### WithdrawBalance
 
-```
+```go
 func WithdrawBalance(params WithdrawBalanceParams) WithdrawBalanceReturn {}
 ```
 
 Withdraw the specified amount from the balance held in escrow.
 
-`uint`  WithdrawBalanceMethodNum = 2280458852;
+`uint`  WithdrawBalanceMethodNum = 2280458852.
 
 **Params**:
 
@@ -65,20 +67,20 @@ Withdraw the specified amount from the balance held in escrow.
 
 ### PublishStorageDeals
 
-```
+```go
 func PublishStorageDeals(params PublishStorageDealsParams) PublishStorageDealsReturn {}
 ```
 
 Publish a new set of storage deals which are not yet included in a sector.
 
-`uint` PublishStorageDealsMethodNum = 2236929350;
+`uint` PublishStorageDealsMethodNum = 2236929350.
 
 **Params**:
 
 + `struct` PublishStorageDealsParams
   + `struct ClientDealProposal[]` Deals - list of deal proposals signed by a client
     + `struct DealProposal` Proposal 
-      + `bytes` PieceCID - 
+      + `bytes` PieceCID.
       + `uint64` PieceSize - the size of the piece.
       + `bool` VerifiedDeal - if the deal is verified or not.
       + `bytes` Client - the address of the storage client.
@@ -86,9 +88,9 @@ Publish a new set of storage deals which are not yet included in a sector.
       + `string` Label - any label that client choose for the deal.
       + `int64` StartEpoch - the chain epoch to start the deal.
       + `int64` EndEpoch - the chain epoch to end the deal.
-      +  `uint256` StoragePricePerEpoch -  the token amount to pay to provider per epoch.
-      + `uint256` ProviderCollateral - the token amount as collateral paid by the provider.
-      + `uint256` ClientCollateral - the token amount as collateral paid by the client.
+      +  `int256` StoragePricePerEpoch -  the token amount to pay to provider per epoch.
+      + `int256` ProviderCollateral - the token amount as collateral paid by the provider.
+      + `int256` ClientCollateral - the token amount as collateral paid by the client.
 
     + `bytes` ClientSignature - the signature signed by the client.
 
@@ -101,13 +103,13 @@ Publish a new set of storage deals which are not yet included in a sector.
 
 ### GetDealDataCommitment
 
-```
+```go
 func GetDealDataCommitment(params GetDealDataCommitmentParams) GetDealDataCommitmentReturn {}
 ```
 
 Return the data commitment and size of a deal proposal.
 
-`uint` GetDealDataCommitmentMethodNum = 1157985802;
+`uint` GetDealDataCommitmentMethodNum = 1157985802.
 
 **Params**:
 
@@ -122,13 +124,13 @@ Return the data commitment and size of a deal proposal.
 
 ### GetDealClient
 
-```
+```go
 func GetDealClient(params GetDealClientParams) GetDealClientReturn {}
 ```
 
-Return the client of a deal proposal.
+Return the client of the deal proposal.
 
-`uint` GetDealClientMethodNum = 128053329;
+`uint` GetDealClientMethodNum = 128053329.
 
 **Params**:
 
@@ -140,13 +142,13 @@ Return the client of a deal proposal.
 
 ### GetDealProvider
 
-```
+```go
 func GetDealProvider(params GetDealProviderParams) GetDealProviderReturn {}
 ```
 
 Return the provider of a deal proposal.
 
-`uint` GetDealProviderMethodNum = 935081690;
+`uint` GetDealProviderMethodNum = 935081690.
 
 **Params**:
 
@@ -158,13 +160,13 @@ Return the provider of a deal proposal.
 
 ### GetDealLabel
 
-```
+```go
 func GetDealLabel(params GetDealLabelParams) GetDealLabelReturn {}
 ```
 
 Return the label of a deal proposal.
 
-`uint` GetDealLabelMethodNum = 46363526;
+`uint` GetDealLabelMethodNum = 46363526.
 
 **Params**:
 
@@ -176,13 +178,13 @@ Return the label of a deal proposal.
 
 ### GetDealTerm
 
-```
-func GetDealTerm(params GetDealTermParams) GetDealLabelReturn {}
+```go
+func GetDealTerm(params GetDealTermParams) GetDealTermReturn {}
 ```
 
 Return the start epoch and duration(in epochs) of a deal proposal. 
 
-`uint` GetDealTermMethodNum = 163777312;
+`uint` GetDealTermMethodNum = 163777312.
 
 **Params**:
 
@@ -203,7 +205,7 @@ func GetDealTotalPrice(params GetDealTotalPriceParams) GetDealTotalPriceReturn {
 
 Return the total price that will be paid from the client to the provider for this deal.
 
-`uint` GetDealEpochPriceMethodNum = 4287162428;
+`uint` GetDealEpochPriceMethodNum = 4287162428.
 
 **Params**:
 
@@ -211,7 +213,7 @@ Return the total price that will be paid from the client to the provider for thi
 
 **Results**:
 
-+ `uint256 ` GetDealTotalPriceReturn - the token amount that will be paid by client to provider.
++ `int256 ` GetDealTotalPriceReturn - the token amount that will be paid by client to provider.
 
 ### GetDealClientCollateral
 
@@ -221,7 +223,7 @@ func GetDealClientCollateral(params GetDealClientCollateralParams) GetDealClient
 
 Return the client collateral requirement for a deal proposal.
 
-`uint` GetDealClientCollateralMethodNum = 200567895;
+`uint` GetDealClientCollateralMethodNum = 200567895.
 
 **Params**:
 
@@ -229,7 +231,7 @@ Return the client collateral requirement for a deal proposal.
 
 **Results**:
 
-+ `uint256` GetDealClientCollateralReturn - the token amount as collateral paid by the client.
++ `int256` GetDealClientCollateralReturn - the token amount as collateral paid by the client.
 
 ### GetDealProviderCollateral
 
@@ -239,7 +241,7 @@ func GetDealProviderCollateral(params GetDealProviderCollateralParams) GetDealPr
 
 Return the provide collateral requirement for a deal proposal.
 
-`uint`  GetDealProviderCollateralMethodNum = 2986712137;
+`uint`  GetDealProviderCollateralMethodNum = 2986712137.
 
 **Params**:
 
@@ -247,7 +249,7 @@ Return the provide collateral requirement for a deal proposal.
 
 **Results**:
 
-+ `uint256` GetDealProviderCollateralReturn - the token amount as collateral paid by the provider.
++ `int256` GetDealProviderCollateralReturn - the token amount as collateral paid by the provider.
 
 ### GetDealVerified
 
@@ -257,7 +259,7 @@ func GetDealVerified(params GetDealVerifiedParams) GetDealVerifiedReturn {}
 
 Return the verified flag for a deal proposal.
 
-`uint` GetDealVerifiedMethodNum = 2627389465;
+`uint` GetDealVerifiedMethodNum = 2627389465.
 
 **Params**:
 
@@ -275,7 +277,7 @@ func GetDealActivation(params GetDealActivationParams) GetDealActivationReturn {
 
 Return the activation state for a deal.
 
-`uint` GetDealActivationParams = 2567238399;
+`uint` GetDealActivationParams = 2567238399.
 
 **Params**:
 

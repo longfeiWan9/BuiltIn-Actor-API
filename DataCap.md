@@ -1,16 +1,18 @@
 # DataCap Actor
 
-DataCap Actor is responsible for DataCap token management.  The ActorCode for DataCap actor is *hex*"0007" which will be used to call DataCap actor APIs. 
+DataCap Actor is responsible for DataCap token management.  
+
+The ActorCode for DataCap actor is `hex"0007"` which will be used to call DataCap actor APIs. You also need to specify method number of which method you want to invoke. Please refer the each method for its method number.
 
 ### Name
 
-```
+```go
 func Name() String {}
 ```
 
 Return the name of DataCap token which is 'DataCap'.
 
-`Unit ` NameMethodNum : 48890204
+`Unit ` NameMethodNum : 48890204.
 
 **Params**:
 
@@ -22,13 +24,13 @@ Return the name of DataCap token which is 'DataCap'.
 
 ### Symbol
 
-```
+```go
 func Symbol() String {}
 ```
 
 Return the symbol of DataCap token which is 'DCAP'.
 
-`unit` SymbolMethodNum: 2061153854
+`unit` SymbolMethodNum: 2061153854.
 
 **Params**:
 
@@ -40,7 +42,7 @@ Return the symbol of DataCap token which is 'DCAP'.
 
 ### TotalSupply
 
-```
+```go
 func TotalSupply() TokenAmount {}
 ```
 
@@ -58,8 +60,8 @@ Return the total supply of DataCap token.
 
 ### Balance
 
-```
-func TotalSupply(params Address) TokenAmount {}
+```go
+func Balance(params Address) TokenAmount {}
 ```
 
 Return the DataCap token balance for the wallet address.
@@ -68,15 +70,15 @@ Return the DataCap token balance for the wallet address.
 
 **Params**:
 
-+ `bytes` Address: the wallet address.
++ `bytes` Address - the wallet address.
 
 **Results**:
 
-+ `int256` TokenAmount - the DataCap token balance for the specified address.
++ `int256` TokenAmount - the DataCap token balance for the specified wallet address.
 
 ### Transfer
 
-```
+```go
 func Transfer(params TransferParams) TransferReturn {}
 ```
 
@@ -88,69 +90,69 @@ Transfers DataCap tokens from caller address to the to address.
 
 + `struct` TransferParams
   + `bytes` To -  the address to receive DataCap token.
-  + `int256` Amount-  A non-negative amount to transfer.
-  + `bytes[]` OperatorData: Arbitrary data to pass on via the receiver hook.
+  + `int256` Amount -  A non-negative amount to transfer.
+  + `bytes[]` OperatorData - Arbitrary data to pass on via the receiver hook.
 
 
 **Results**:
 
 + `struct` TransferReturn
-  + `int256` from_balance: the balance of from_address.
-  + `int256` to_balance:  the balance of to_address.
-  + `bytes` recipient_data: data returned from receive hook.
+  + `int256` FromBalance - the balance of from_address.
+  + `int256` ToBalance - the balance of to_address.
+  + `bytes` RecipientData: data returned from receive hook.
 
 ### TransferFrom
 
-```
+```go
 func TransferFrom(params TransferFromParams) TransferFromReturn {}
 ```
 
-Transfers DataCap tokens between from from_address to to_address.
+Transfers DataCap tokens between from the from_address to the to_address.
 
 `uint`  TransferFromMethodNum = 3621052141.
 
 **Params**:
 
 + `bytes` TransferFromParams 
-  + `bytes` from: the address to send DataCap.
-  + `bytes` to: the address to receive DataCap.
-  + `int256` amount: A non-negative amount to transfer.
-  + `bytes` operator_data: Arbitrary data to pass on via the receiver hook.
+  + `bytes` From - the address to send DataCap Token.
+  + `bytes` To - the address to receive DataCap Token.
+  + `int256` Amount - A non-negative amount to transfer.
+  + `bytes` OperatorData: Arbitrary data to pass on via the receiver hook.
 
 **Results**:
 
 + `struct` TransferFromReturn
-  + `int256` FromBalance: the balance of from_address.
-  + `int256` ToBalance:  the balance of to_address.
-  + `int256` Allowance: the remaining allowance of owner address.
-  + `bytes` RecipientData: data returned from receive hook.
+  + `int256` FromBalance - the balance of from_address.
+  + `int256` ToBalance -  the balance of to_address.
+  + `int256` Allowance - the remaining allowance of owner address.
+  + `bytes` RecipientData - data returned from receive hook.
 
 
 ### IncreaseAllowance
 
-```
-func IncreaseAllowance(params IncreaseAllowanceParams) int256 {}
+```go
+func IncreaseAllowance(params IncreaseAllowanceParams) TokenAmount {}
 ```
 
-Increase the DataCap token allowance that an operator can control of an owner's balance by the requested amount.
+Increase the DataCap token allowance that an operator can control of the owner's balance by the requested amount.
 
-`uint`  IncreaseAllowanceMethodNum = 1777121560;
+`uint`  IncreaseAllowanceMethodNum = 1777121560.
 
 **Params**:
 
 + `struct` IncreaseAllowanceParams
-  +  `bytes` operator : the  wallet address of the operator.
-  +  `int256` increaseAmount: increase DataCap token allowance amount.
+  +  `bytes` Operator - the  wallet address of the operator.
+  +  `int256` increaseAmount - increase DataCap token allowance for the operator address.
 
 
 **Results**:
 
-+ `int256` the total Allowance amount of the operator address.
++ `int256` TokenAmount - the new DataCap allowance of the operator address.
 
 ### DecreaseAllowance
 
-```
-func DecreaseAllowance(params DecreaseAllowanceParams) int256 {}
+```go
+func DecreaseAllowance(params DecreaseAllowanceParams) TokenAmount {}
 ```
 
 Decrease the DataCap token allowance that an operator controls of the owner's balance by the requested amount.
@@ -160,81 +162,81 @@ Decrease the DataCap token allowance that an operator controls of the owner's ba
 **Params**:
 
 +  `struct` DecreaseAllowanceParams
-  +  `bytes` Operator : the  wallet address of the operator.
-  +  `int256` increaseAmount: the decreased DataCap token allowance amount.
+  +  `bytes` Operator - the  wallet address of the operator.
+  +  `int256` IncreaseAmount - the decreased DataCap token allowance of the operator address.
 
 **Results**:
 
-+ `int256` the total Allowance amount of the operator address.
++ `int256` TokenAmount - the new DataCap allowance of the operator address.
 
 ### RevokeAllowance
 
-```
-func RevokeAllowance(params RevokeAllowanceParams) int256 {}
+```go
+func RevokeAllowance(params RevokeAllowanceParams) TokenAmount {}
 ```
 
-Revoke the DataCap Token allowance from the operator and set the operator's allowance in behave of owner address to 0.
+Revoke the DataCap token allowance from the operator and set the operator's allowance in behave of owner/caller address to 0. 
 
-`uint` RevokeAllowanceMethodNum = 2765635761;
+`uint` RevokeAllowanceMethodNum = 2765635761.
 
 **Params**:
 
 + `struct`  RevokeAllowanceParams
-  +  `bytes` operator : the  wallet address of the operator.
+  +  `bytes` Operator - the wallet address of the operator.
 
 
 **Results**:
 
-+ `int256`: the old Allowance amount of the operator address.
++ `int256` TokenAmount - the old Allowance amount of the operator address.
 
 ### Burn
 
-```
-func Burn(params BurnParams) int256 {}
+```go
+func Burn(params BurnParams) TokenAmount {}
 ```
 
-Burns an amount of token from the owner/caller address, decreasing total token supply.
+Burn an amount of DataCap token from the owner/caller address, decreasing total token supply.
 
-`uint` BurnMethodNum = 1434719642;
+`uint` BurnMethodNum = 1434719642.
 
 **Params**:
 
 + `struct` BurnParams
-  + `int256` Amount: the amount the DataCap token to be burned
+  + `int256` Amount - the amount the DataCap token to be burned.
 
 
 **Results**:
 
-+ `int256` : the updated DataCap token balance of the caller address
++ `int256` TokenAmount - the updated DataCap token balance of the owner/caller address.
 
 ### BurnFrom
 
-```
+```go
 func BurnFrom(params BurnFromParams) BurnFromReturn {}
 ```
 
-Burns an amount of token from the specified address (owner address), decrease the allowance of operator/caller, and decrease total token supply.
+Burn an amount of DataCap token from the specified address (owner address), decrease the allowance of operator/caller, and decrease total token supply.
 
-`uint` BurnFromMethodNum = 2979674018;
+`uint` BurnFromMethodNum = 2979674018.
 
 **Params**:
 
 + `struct` BurnFromParams
-  + `bytes` Owner : the  wallet address of the owner.
-  + `int256` Amount: the amount of DataCap token to be burned.
+  + `bytes` Owner - the wallet address of the owner.
+  + `int256` Amount - the amount of DataCap token to be burned.
 
 
 **Results**:
 
 + `struct` BurnFromReturn
-  + `bytes` : the  wallet address of the owner.
-  + `int256` : the new balance of owner wallet.
+  + `bytes`  Owner - the wallet address of the owner.
+  + `int256` Amount - the new balance of owner wallet.
 
 
 ### Allowance
 
-```
-func Burn(params BurnParams) int256 {}
+```go
+func Allowance(params GetAllowanceParams) TokenAmount {}
 ```
 
 Return the allowance between owner and operator address.
@@ -243,11 +245,11 @@ Return the allowance between owner and operator address.
 
 **Params**:
 
-+ `struct` AllowanceParams
-  + `bytes` Owner : the  wallet address of the owner.
-  + `bytes` Operator : the  wallet address of the owner.
++ `struct` GetAllowanceParams
+  + `bytes` Owner : the wallet address of the owner.
+  + `bytes` Operator : the wallet address of the owner.
 
 
 **Results**:
 
-+ `int256` : the  allowance that an operator can control of an owner's balance.
++ `int256`  TokenAmount - the allowance that an operator can control of an owner's allowance.

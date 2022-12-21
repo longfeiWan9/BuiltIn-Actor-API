@@ -1,16 +1,18 @@
 # Miner built-in actor
 
-The miner built-in actor responsible to deal with storage mining operations and collect proof. The ActorCode for Miner built-in actor is `hex"0011"` which will be used to call miner actor.
+The miner built-in actor responsible to deal with storage mining operations and collect proof. 
+
+To interact with specific miner, you need to use this miner address to invoke the methods in miner built-in actor. You also need to specify method number of which method you want to invoke. Please refer the each method for its method number.
 
 ### GetPeerID
 
-```
+```go
 func GetPeerID() GetPeerIDReturn {}
 ```
 
-Returns the Peer ID for the caller/miner address.
+Return the Peer ID for the caller/miner address.
 
-`uint` GetPeerIDMethodNum = 2812875329;
+`uint` GetPeerIDMethodNum = 2812875329.
 
 **Params**:
 
@@ -19,24 +21,23 @@ Returns the Peer ID for the caller/miner address.
 **Results**:
 
 + `struct` GetPeerIDReturn
-  + `bytes` PeerID: the peer ID for the specified storage provider/miner.
+  + `bytes` PeerID - the peer ID for the specified storage provider/miner.
 
 
 ### ChangePeerID
 
-```
+```go
 func ChangePeerID(params ChangePeerIDParams) EmptyValue {}
 ```
 
 Change the peer ID for the caller/miner address.
 
-`uint`  ChangePeerIDMethodNum = 1236548004;
+`uint`  ChangePeerIDMethodNum = 1236548004.
 
 **Params**:
 
 + `struct` ChangePeerIDParams
-  + `bytes` NewID - the new peer ID
-
+  + `bytes` NewID - the new peer ID.
 
 **Results**:
 
@@ -44,13 +45,13 @@ Change the peer ID for the caller/miner address.
 
 ### GetMultiaddrs
 
-```
+```go
 func GetMultiaddrs() GetMultiAddrsReturn {}
 ```
 
 Returns the multi-signature address for this caller/miner address.
 
-`uint` GetMultiaddrsMethodNum = 1332909407;
+`uint` GetMultiaddrsMethodNum = 1332909407.
 
 **Params**:
 
@@ -63,19 +64,18 @@ Returns the multi-signature address for this caller/miner address.
 
 ### ChangeMultiaddrs
 
-```
+```go
 func ChangeMultiaddrs(params ChangeMultiaddrsParams) EmptyValue {}
 ```
 
 Change the multi-signature address for this caller/miner address.
 
-`uint`  ChangeMultiaddrsMethodNum = 1063480576;
+`uint`  ChangeMultiaddrsMethodNum = 1063480576.
 
 **Params**:
 
 + `struct` ChangeMultiaddrsParams
   + `byte[]` NewMultiaddrs - the new multi-signature address.
-
 
 **Results**:
 
@@ -83,19 +83,19 @@ Change the multi-signature address for this caller/miner address.
 
 ### ChangeWorkerAddress
 
-```
+```go
 func ChangeWorkerAddress(params ChangeWorkerAddressParams) EmptyValue {}
 ```
 
 Change the worker address for the caller/miner address, and overwrite the existing addresses with the new control addresses passed in the params.
 
-`uint` ChangeOwnerAddressMethodNum = 1010589339;
+`uint` ChangeOwnerAddressMethodNum = 1010589339.
 
 **Params**:
 
 + `struct` ChangeWorkerAddressParams
-  + `byte` NewWorker - the new worker address
-  + `byte[]` NewControlAddrs: 
+  + `byte` NewWorker - the new worker address.
+  + `byte[]` NewControlAddrs - the new controller addresses.
 
 
 **Results**:
@@ -104,13 +104,13 @@ Change the worker address for the caller/miner address, and overwrite the existi
 
 ### ConfirmChangeWorkerAddress
 
-```
-func ChangeWorkerAddress() EmptyValue {}
+```go
+func ConfirmChangeWorkerAddress() EmptyValue {}
 ```
 
 Confirm the worker address has been changed for the caller/miner address.
 
-`uint` ConfirmChangeWorkerAddressMethodNum = 2354970453;
+`uint` ConfirmChangeWorkerAddressMethodNum = 2354970453.
 
 **Params**:
 
@@ -122,13 +122,13 @@ Confirm the worker address has been changed for the caller/miner address.
 
 ### RepayDebt
 
-```
+```go
 func RepayDebt() EmptyValue {}
 ```
 
 Repay as much fee debt as possible for the caller/miner address.
 
-`uint`  RepayDebtMethodNum = 3665352697;
+`uint`  RepayDebtMethodNum = 3665352697.
 
 **Params**:
 
@@ -146,7 +146,7 @@ func GetOwner() GetOwnerReturn {}
 
 Return the the owner address of the caller/miner address.
 
-`uint` GetOwnerMethodNum = 3275365574;
+`uint` GetOwnerMethodNum = 3275365574.
 
 **Params**:
 
@@ -155,18 +155,18 @@ Return the the owner address of the caller/miner address.
 **Results**:
 
 + `struct` GetOwnerReturn
-  + `byte` Onwer - owner address.
+  + `byte` Owner - owner address.
 
 
 ### ChangeOwnerAddress
 
-```
+```go
 func ChangeOwnerAddress(bytes address) {}
 ```
 
 Proposes or confirms a change of owner address.
 
-`uint` ChangeOwnerAddressMethodNum = 1010589339;
+`uint` ChangeOwnerAddressMethodNum = 1010589339.
 
 **Params**:
 
@@ -178,13 +178,13 @@ Proposes or confirms a change of owner address.
 
 ### GetBeneficiary
 
-```
+```go
 func GetBeneficiary() GetBeneficiaryReturn {}
 ```
 
 Return the currently active and proposed beneficiary information.
 
-`uint` GetBeneficiaryMethodNum = 4158972569;
+`uint` GetBeneficiaryMethodNum = 4158972569.
 
 **Params**:
 
@@ -210,13 +210,13 @@ Return the currently active and proposed beneficiary information.
 
 ### ChangeBeneficiary
 
-```
+```go
 func ChangeBeneficiary(params ChangeBeneficiaryParams) EmptyValue {}
 ```
 
 Propose or confirm a change of beneficiary information.
 
-`uint` ChangeBeneficiaryMethodNum = 1570634796;
+`uint` ChangeBeneficiaryMethodNum = 1570634796.
 
 **Params**:
 
@@ -232,13 +232,13 @@ Propose or confirm a change of beneficiary information.
 
 ### IsControllingAddress
 
-```
-GetSectorSize
+```go
+func IsControllingAddress(params IsControllingAddressParams) IsControllingAddressReturn {}
 ```
 
-Returns whether the provided address is the Owner, the Worker, or any of the Control Addresses.
+Returns whether the provided address is the Owner, the Worker, or any of the control addresses.
 
-`uint` IsControllingAddressMethodNum = 348244887;
+`uint` IsControllingAddressMethodNum = 348244887.
 
 **Params**:
 
@@ -246,11 +246,11 @@ Returns whether the provided address is the Owner, the Worker, or any of the Con
 
 **Results**:
 
-+ `bool` IsControllingAddressReturn
++ `bool` IsControllingAddressReturn - if the specified address is the control address.
 
 ### GetSectorSize
 
-```
+```go
 func GetSectorSize() GetSectorSizeReturn {}
 ```
 
@@ -270,13 +270,13 @@ Returns the miner's sector size.
 
 ### GetAvailableBalance
 
-```
+```go
 func GetAvailableBalance() GetAvailableBalanceReturn {}
 ```
 
 Returns the available balance of this miner.
 
-`uint` GetAvailableBalanceMethodNum = 4026106874;
+`uint` GetAvailableBalanceMethodNum = 4026106874.
 
 **Params**:
 
@@ -288,7 +288,7 @@ Returns the available balance of this miner.
 
 ### WithdrawBalance
 
-```
+```go
 func WithdrawBalance(params WithdrawBalanceParams) WithdrawBalanceReturn {}
 ```
 
@@ -297,7 +297,7 @@ Withdraw the token balance for this miner.
 **Params**:
 
 + `struct` WithdrawBalanceParams
-  + `int256` AmountRequested - withdraw token amount
+  + `int256` AmountRequested - withdraw token amount.
 
 
 **Results**:
@@ -306,13 +306,13 @@ Withdraw the token balance for this miner.
 
 ### GetVestingFunds
 
-```
+```go
 func GetVestingFunds() GetVestingFundsReturn {}
 ```
 
-Returns the funds vesting in this miner as a list of (vesting_epoch, vesting_amount) tuples.
+Return the funds vesting in this miner as a list of (vesting_epoch, vesting_amount) tuples.
 
-`uint` GetVestingFundsMethodNum = 1726876304;
+`uint` GetVestingFundsMethodNum = 1726876304.
 
 **Params**:
 
