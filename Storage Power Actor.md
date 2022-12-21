@@ -4,16 +4,17 @@ The ActorCode for storage power built-in actor is *hex*"0004" which will be used
 
 ### CreateMiner
 
-```
-createMiner(params: CreateMinerParams) -> Result<CreateMinerReturn, ActorError>
+```go
+func CreateMiner(params CreateMinerParams) CreateMinerReturn {}
 ```
 
 Create a new miner for the owner address and worker address.
 
+`uint` CreateMinerMethodNum = 1173380165;
+
 **Params**:
 
-+ `uint` CreateMinerMethodNum = 1173380165;
-+ CreateMinerParams
++ `struct` CreateMinerParams
   + `bytes` Owner: the address of the owner
   + `bytes` Worker: the address of the workder
   + `RegisteredPoStProof` WindowPoStProofType: the type of RegisteredPoStProof
@@ -29,69 +30,75 @@ Create a new miner for the owner address and worker address.
   + `byte`: A more expensive but re-org-safe address for the newly created actor.
 
 
-
-
 ### NetworkRawPower
+
+```go
+func NetworkRawPower() NetworkRawPowerReturn {}
+```
 
 Returns the total raw power of the network.
 
+`uint`  NetworkRawPowerMethodNum = 931722534;
+
 **Params**:
 
-+ `uint`  NetworkRawPowerMethodNum = 931722534;
 + null
 
 **Results**:
 
-+ `int256` : the raw storage power of the whole network.
++ `struct` NetworkRawPowerReturn
+  + `int256` : the raw storage power of the whole network.
 
-**Examples**:
-
-```
-Actor.call(PowerTypes.NetworkRawPowerMethodNum, PowerTypes.ActorCode, raw_request);
-```
 
 ### MinerRawPower
 
+```
+func MinerRawPower(params MinerRawPowerParams) MinerRawPowerParams {}
+```
+
 Returns the raw power claimed by the specified miner, and whether the miner has more than the consensus minimum amount of storage active.
+
+`uint` MinerRawPowerMethodNum = 3753401894;
 
 **Params**:
 
-+ `uint` MinerRawPowerMethodNum = 3753401894;
 + MinerRawPowerParams
   + `uint64` Miner : Miner ID
 
-
 **Results**:
 
-+ `int256`: the row power of the miner
-+ `bool`: if the miner power meets the minimum for consensus
++ `struct` MinerRawPowerParams
 
-**Examples**:
+  + `int256`: the row power of the miner
 
-```
-Actor.call(PowerTypes.MinerRawPowerMethodNum, PowerTypes.ActorCode, raw_request);
-```
+  + `bool`: if the miner power meets the minimum for consensus
+
 
 ### MinerCount
 
+```
+func MinerCount() MinerCountReturn {}
+```
+
 Returns the total number of miners created, regardless of whether or not they have any pledged storage.
+
+`uint` MinerRawPowerMethodNum = 3753401894;
 
 **Params**:
 
-+ `uint` MinerRawPowerMethodNum = 3753401894;
 + null
 
 **Results**:
 
-+ `uint64`: the count of the miners that the caller address has
++ `struct	` MinerCountReturn
+  + `uint64`: the count of the miners that the caller address has
 
-**Examples**:
-
-```
-Actor.call(PowerTypes.MinerCountMethodNum, PowerTypes.ActorCode, raw_request);
-```
 
 ### MinerConsensusCount
+
+```
+func MinerConsensusCount() MinerConsensusCountReturn {}
+```
 
 Returns the total number of miners that have more than the consensus minimum amount of storage active.
 
@@ -102,11 +109,7 @@ Returns the total number of miners that have more than the consensus minimum amo
 
 **Results**:
 
-+ `uint64`: the count of the miners meet the consensus minimum that the caller address has.
++ `struct` MinerConsensusCountReturn
+  + `uint64`: the count of the miners meet the consensus minimum that the caller address has.
 
-**Examples**:
-
-```
-delegate(PowerTypes.MinerConsensusCountMethodNum, PowerTypes.ActorCode, raw_request);
-```
 

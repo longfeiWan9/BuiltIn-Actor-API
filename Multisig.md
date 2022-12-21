@@ -14,7 +14,7 @@ Propose a token transfer transaction for signers to approve, the proposer automa
 
 **Params**:
 
-+ ProposeParams
++ `struct` ProposeParams
   + `bytes` toAddress: the address to receive the token.
   + `int256` value: the token amount to be tranfered.
   + `uint64` method: ?
@@ -22,7 +22,7 @@ Propose a token transfer transaction for signers to approve, the proposer automa
 
 **Results**:
 
-+ ProposeReturn
++ `struct` ProposeReturn
   + `int64` TxnID: the ID of the proposed transaction.
   + `bool` Applied: if the transaction was applied as proposed or not?
   + `uint31` Code: the exit code of the transaction, if Applied is false this field should be ignored.
