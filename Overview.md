@@ -1,0 +1,3 @@
+# Lotus Built-In APIs
+
+Built-in actors are a set of protocol actors integrated into the Fielcoin protocol, providing features around storage, market, miner, etc. In order to use certain features of the Filecoin network, FEVM smart contracts need to interact with built-in actors via their exposed API. These API docs intend to provide information about how to use those exported APIs in user-defined smart contracts.
